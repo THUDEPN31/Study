@@ -1,0 +1,299 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{enumitem}
+\pgfplotsset{compat=1.18}
+\geometry{left=2cm, right=2cm, top=2cm, bottom=2cm}
+
+\title{复变函数计算总结}
+\author{核31\kern 36pt 钱昊远\kern 12pt 整理}
+\date{2024年11月2日}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\textbf{C-R方程}
+
+函数$f\left(z\right)=u\left(x,y\right)+iv\left(x,y\right)$在$z=x+iy$处可导的充要条件是：
+$u\left(x,y\right)$、$v\left(x,y\right)$在点$\left(x,y\right)$处可微，
+而且满足柯西——黎曼方程：
+$$
+\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y}\kern 36pt
+\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}
+$$
+
+\noindent
+\textbf{幂级数收敛半径}
+
+比值法：若
+$$
+\lim_{n\to\infty}\left|\frac{C_{n+1}}{C_n}\right|=\lambda
+$$
+则幂级数的收敛半径$R=\frac1\lambda$；
+
+根值法：若
+$$
+\lim_{n\to\infty}\sqrt[n]{\left|C_n\right|}=\lambda
+$$
+则幂级数的收敛半径$R=\frac1\lambda$。
+
+\noindent
+\textbf{常见的泰勒级数}
+
+$$
+\frac1{1-z}=\sum_{n=0}^\infty z^n
+=1+z+z^2+\cdots+z^n+\cdots
+$$
+上述级数收敛域为$\left|z\right|<1$，下列级数收敛域为$\left|z\right|<+\infty$
+
+$$
+e^z=\sum_{n=0}^\infty \frac1{n!}z^n
+=1+\frac{z}{1!}+\frac{z^2}{2!}+\cdots+\frac{z^n}{n!}+\cdots
+$$
+
+$$
+\sin z=\sum_{n=0}^\infty \left(-1\right)^n\frac{z^{2n+1}}{\left(2n+1\right)!}
+=z-\frac{z^3}{3!}+\frac{z^5}{5!}+\cdots+
+\left(-1\right)^n\frac{z^{2n+1}}{\left(2n+1\right)!}+\cdots
+$$
+
+$$
+\cos z=\sum_{n=0}^\infty \left(-1\right)^n\frac{z^{2n}}{\left(2n\right)!}
+=1-\frac{z^2}{2!}+\frac{z^4}{4!}+\cdots+
+\left(-1\right)^n\frac{z^{2n}}{\left(2n\right)!}+\cdots
+$$
+
+$$
+\left(1+z\right)^\alpha=1+\sum_{n=1}^\infty\frac{\prod_{k=0}^{n-1}\left(\alpha-k\right)}{n!}z^n
+=1+\alpha z+\frac{\alpha\left(\alpha-1\right)}{2!}z^2+\cdots+
+\frac{\alpha\left(\alpha-1\right)\cdots\left(\alpha-n+1\right)}{n!}z^n+\cdots
+$$
+
+\noindent
+\textbf{洛朗级数的展开方法}
+
+洛朗级数的展开，一般采用在已知泰勒级数的收敛域内使用泰勒展开的方式展开。常见的方式为：
+在$\left|z-z_0\right|<R_2$内展开
+$$
+\left(z-z_0\right)^k\frac1{1-\left(\frac{z-z_0}{r}\right)^l}=
+\sum_{n=0}^\infty \frac1{r^{ln}}\left(z-z_0\right)^{ln+k}
+$$
+其中$r\ge R_2,k\in\mathbb{Z},l\in\mathbb{N}_+$；
+或在$\left|z-z_0\right|>R_1$内展开
+$$
+\left(z-z_0\right)^k\frac1{1-\left(\frac{r}{z-z_0}\right)^l}=
+\sum_{n=0}^\infty r^{ln}\frac1{\left(z-z_0\right)^{ln-k}}
+$$
+其中$0<r\le R_1,k\in\mathbb{Z},l\in\mathbb{N}_+$。
+
+\noindent
+\textbf{孤立奇点的分类}
+
+若对一切$n<0$有$C_n=0$，则称$z_0$是函数$f\left(z\right)$的可去奇点。
+此时若令$f\left(z_0\right)=C_0$，可以得到在整个圆盘$\left|z-z_0\right|<\delta$内解析的函数$f\left(z\right)$。
+
+若只有有限个（至少一个）整数$n<0$，使得$C_n\ne0$，则称$z_0$是函数$f\left(z\right)$的极点。
+设对于正整数$m$，$C_{-m}\ne0$，而当$n<-m$时，$C_n=0$，则称$z_0$是函数$f\left(z\right)$的$m$阶极点，
+$1$阶极点又叫做简单极点。
+
+若有无限个整数$n<0$，使得$C_n\ne0$，则称$z_0$是函数$f\left(z\right)$的本性奇点。
+
+当函数$f\left(z\right)$在$0<\left|z-z_0\right|<\delta\left(0<\delta\le+\infty\right)$内解析时：
+\begin{center}
+    $\lim_{z\to z_0}f\left(z\right)=C_0\ne\infty$
+    $\Longleftrightarrow$
+    $z_0$是$f\left(z\right)$的可去奇点
+
+    $\lim_{z\to z_0}f\left(z\right)=\infty$
+    $\Longleftrightarrow$
+    $z_0$是$f\left(z\right)$的极点
+
+    $\lim_{z\to z_0}\left(z-z_0\right)^mf\left(z\right)=C_{-m}\ne0\left(m\in\mathbb{N}_+\right)$
+    $\Longleftrightarrow$
+    $z_0$是$f\left(z\right)$的$m$阶极点
+
+    $\lim_{z\to z_0}f\left(z\right)$不存在
+    $\Longleftrightarrow$
+    $z_0$是$f\left(z\right)$的本性奇点
+\end{center}
+
+若$f\left(z_0\right)$在$z_0$解析，那么$z_0$为$f\left(z\right)$的$m$阶零点的充要条件为
+$$
+f^{\left(n\right)}\left(z_0\right)=0\kern 12pt
+\left(n=0,1,\cdots,m-1\right),\kern 12pt
+f^{\left(m\right)}\left(z_0\right)\ne0
+$$
+
+函数的零点与极点的关系为（可去奇点当做解析点看待）：
+\begin{center}
+    $z_0$是$f\left(z\right)$的$m$阶极点
+    $\Longleftrightarrow$
+    $z_0$是$\frac1{f\left(z\right)}$的$m$阶零点
+\end{center}
+
+若对一切$n>0$有$C_n=0$，则称$\infty$是函数$f\left(z\right)$的可去奇点。
+
+若只有有限个（至少一个）整数$n>0$，使得$C_n\ne0$，则称$\infty$是函数$f\left(z\right)$的极点。
+设对于正整数$m$，$C_m\ne0$，而当$n>m$时，$C_n=0$，则称$\infty$是函数$f\left(z\right)$的$m$阶极点。
+
+若有无限个整数$n>0$，使得$C_n\ne0$，则称$\infty$是函数$f\left(z\right)$的本性奇点。
+
+当函数$f\left(z\right)$在$R<\left|z\right|<-\infty\left(R\ge0\right)$内解析时：
+\begin{center}
+    $\lim_{z\to\infty}f\left(z\right)=C_0\ne\infty$
+    $\Longleftrightarrow$
+    $\infty$是$f\left(z\right)$的可去奇点
+
+    $\lim_{z\to\infty}f\left(z\right)=\infty$
+    $\Longleftrightarrow$
+    $\infty$是$f\left(z\right)$的极点
+
+    $\lim_{z\to\infty}\frac{f\left(z\right)}{z^m}=C_{m}\ne0\left(m\in\mathbb{N}_+\right)$
+    $\Longleftrightarrow$
+    $\infty$是$f\left(z\right)$的$m$阶极点
+
+    $\lim_{z\to\infty}f\left(z\right)$不存在
+    $\Longleftrightarrow$
+    $\infty$是$f\left(z\right)$的本性奇点
+\end{center}
+
+\noindent
+\textbf{留数}
+
+设$z_0$是解析函数$f\left(z\right)$的有限孤立奇点，把$f\left(z\right)$在$z_0$处的洛朗展开式中
+的负一次幂的系数$C_{-1}$称为$f\left(z\right)$在$z_0$处的留数，记作
+$$
+\text{Res}\left[f\left(z\right),z_0\right]=C_{-1}
+$$
+易知若$z_0$为$f\left(z\right)$的有限可去奇点，则$\text{Res}\left[f\left(z\right),z_0\right]=0$。
+
+若$z_0$为$f\left(z\right)$的$m\left(m\in\mathbb{N}_+\right)$阶极点，则
+$$
+\text{Res}\left[f\left(z\right),z_0\right]=\frac1{\left(m-1\right)!}
+\lim_{z\to z_0}\frac{d^{m-1}}{dz^{m-1}}\left[\left(z-z_0\right)^mf\left(z\right)\right]
+$$
+其中当$m=1$时，即$z_0$为简单极点时，
+$$
+\text{Res}\left[f\left(z\right),z_0\right]=
+\lim_{z\to z_0}\left[\left(z-z_0\right)f\left(z\right)\right]
+$$
+
+设$f\left(z\right)=\frac{P\left(z\right)}{Q\left(z\right)}$，
+其中$P\left(z\right)$与$Q\left(z\right)$均在$z_0$处解析，
+若$p\left(z_0\right)\ne0$，$z_0$为$Q\left(z\right)$的一阶零点，
+则$z_0$为$f\left(z\right)$的一阶极点，且
+$$
+\text{Res}\left[f\left(z\right),z_0\right]=\frac{P\left(z_0\right)}{Q'\left(z_0\right)}
+$$
+
+设$\infty$为$f\left(z\right)$的一个孤立奇点，把$f\left(z\right)$在$R<\left|z\right|<+\infty$
+内的洛朗展开式中的负一次幂的系数的相反数$-C_{-1}$称为$f\left(z\right)$在$\infty$处的留数，记作
+$$
+\text{Res}\left[f\left(z\right),\infty\right]=-C_{-1}
+$$
+注意：即使$\infty$为$f\left(z\right)$的可去奇点，$\text{Res}\left[f\left(z\right),\infty\right]$也未必是$0$。
+
+无穷远点的留数可以转化为坐标原点的留数：
+$$
+\text{Res}\left[f\left(z\right),\infty\right]=
+-\text{Res}\left[f\left(\frac1z\right)\cdot\frac1{z^2},0\right]
+$$
+
+若$f\left(z\right)$在扩充复平面上只有有限个孤立奇点（包含无穷远点），
+记为$z_1,z_2,\cdots,z_n,\infty$，则$f\left(z\right)$在各点处的留数总和为零。
+
+\noindent
+\textbf{复积分}
+
+设曲线$C$的参数方程为
+$$
+z\left(t\right)=x\left(t\right)+i\left(t\right)\kern 12pt\left(a\le t\le b\right)
+$$
+则复积分可以转化为普通的定积分
+$$
+\int_Cf\left(z\right)dz=\int_a^bf\left(z\left(t\right)\right)z'\left(t\right)dt
+$$
+
+设$f\left(z\right)$在单连通区域$D$内解析，且$F\left(z\right)$为$f\left(z\right)$的一个原函数，则
+$$
+\int_{z_0}^{z_1}f\left(z\right)dz=F\left(z_1\right)-F\left(z_0\right)
+$$
+其中$z_0$与$z_1$均为区域$D$内的点。
+
+设函数$f\left(z\right)$在区域$D$内除有限个孤立奇点$z_1,z_2,\cdots,z_n$外处处解析，
+$C$是$D$内包围各奇点的一条正向简单闭曲线，则
+$$
+\oint_Cf\left(z\right)dz=2\pi i\sum_{k=1}^n\text{Res}\left[f\left(z\right),z_k\right]
+$$
+
+\noindent
+\textbf{利用留数计算实积分}
+
+形如$\int_0^{2\pi}R\left(\cos\theta,\sin\theta\right)d\theta$的积分，
+令$z=e^{i\theta}$，$dz=ie^{i\theta}d\theta$则
+$$
+\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}=\frac{z^2-1}{2iz},\kern 12pt
+\cos\theta=\frac{e^{i\theta}+e^{-i\theta}}{2}=\frac{z^2+1}{2z}
+$$
+此时
+$$
+R\left(\cos\theta,\sin\theta\right)d\theta=
+R\left(\frac{z^2-1}{2iz},\frac{z^2+1}{2z}\right)\frac{dz}{iz}
+$$
+当$\theta$经历变程$\left[0,2\pi\right]$时，对应的$z$正好沿单位圆$\left|z\right|=1$的正向绕行一周。记
+$$
+f\left(z\right)=R\left(\frac{z^2-1}{2iz},\frac{z^2+1}{2z}\right)\frac1{iz}
+$$
+$f\left(z\right)$在积分闭路$\left|z\right|=1$上无奇点，在$\left|z\right|<1$内
+有$n$个奇点$z_1,z_2,\cdots,z_n$，则
+$$
+\int_0^{2\pi}R\left(\cos\theta,\sin\theta\right)d\theta=
+\oint_{\left|z\right|=1}f\left(z\right)dz=
+2\pi i\sum_{k=1}^n\text{Res}\left[f\left(z\right),z_k\right]
+$$
+
+形如$\int_{-\infty}^{+\infty}R\left(x\right)dx$的积分，令
+$$
+R\left(z\right)=\frac{P\left(z\right)}{Q\left(z\right)}=
+\frac{a_0z^n+a_1z^{n-1}+\cdots+a_n}{b_0z^m+b_1z^{m-1}+\cdots+b_m}
+\kern 12pt \left(a_0b_0\ne0,m-n\ge2\right)
+$$
+其中$Q\left(z\right)$在实轴上无零点，记$R\left(z\right)$在上半平面$\text{Im}\ z>0$内的极点为
+$z_1,z_2,\cdots,z_n$，则
+$$
+\int_{-\infty}^{+\infty}R\left(x\right)dx=2\pi i\sum_{k=1}^n\text{Res}\left[R\left(z\right),z_k\right]
+$$
+如果$R\left(z\right)$为偶函数，则
+$$
+\int_0^{+\infty}R\left(x\right)dx=\frac12\int_{-\infty}^{+\infty}R\left(x\right)dx
+=\pi i\sum_{k=1}^n\text{Res}\left[R\left(z\right),z_k\right]
+$$
+
+
+形如$\int_{-\infty}^{+\infty}R\left(x\right)e^{iax}dx\left(a>0\right)$的积分，
+当$R\left(x\right)$是真分式且在实轴上无奇点时，记$f\left(z\right)=R\left(z\right)e^{iaz}$，
+其在在上半平面$\text{Im}\ z>0$内的极点为$z_1,z_2,\cdots,z_n$则
+$$
+\int_{-\infty}^{+\infty}R\left(x\right)e^{iax}dx=
+2\pi i\sum_{k=1}^n\text{Res}\left[f\left(z\right),z_k\right]
+$$
+同时可以得到
+$$
+\int_{-\infty}^{+\infty}R\left(x\right)\cos\left(ax\right)dx=
+\text{Re}\left(2\pi i\sum_{k=1}^n\text{Res}\left[f\left(z\right),z_k\right]\right)
+$$
+$$
+\int_{-\infty}^{+\infty}R\left(x\right)\sin\left(ax\right)dx=
+\text{Im}\left(2\pi i\sum_{k=1}^n\text{Res}\left[f\left(z\right),z_k\right]\right)
+$$
+
+\end{document}
